@@ -1,24 +1,21 @@
 import os
 from flask import Flask, request, jsonify
-
-# Load API key from environment variables
-API_KEY = os.getenv("04102017Qd")
+import requests
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return jsonify({"message": "Sentinel API is running!"})
+# Securely access API key from environment variables
+API_KEY = os.getenv("SECRET_API_KEY")
 
-@app.route("/secure-endpoint", methods=["GET"])
-def secure_endpoint():
-    # Get the API key from the request headers
-    provided_key = request.headers.get("Authorization")
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query')
+    headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
 
-    if provided_key != API_KEY:
-        return jsonify({"error": "Unauthorized"}), 403
+    # Make a request to the actual AI API (Example: OpenAI, Custom DB, etc.)
+    response = requests.get(f"https://sentinel-api-x6ks.onrender.com", headers=headers)
     
-    return jsonify({"message": "Access granted to secure data!"})
+    return jsonify(response.json())
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000, debug=True)
+    app.run(debug=True)
