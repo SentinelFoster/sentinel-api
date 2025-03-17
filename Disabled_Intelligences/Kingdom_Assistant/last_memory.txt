@@ -1,0 +1,5 @@
+User Input: What are the last five topics we discussed?
+User Input: What were the last few topics we discussed?
+User Input: Why is Jehovah’s love important in our lives?
+User Input: Do you still remember our last discussion like before?
+User Input: Sent
